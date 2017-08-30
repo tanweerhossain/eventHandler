@@ -1,8 +1,10 @@
 npm install
-npm i --save webpack
+
+sudo npm i --save webpack
 
 in one terminal
 run: node server.js
+
 in 2nd terminal
 run : webpack
 
