@@ -24,27 +24,39 @@ render(
 
 
 
-import { postEvents, uploadEvents, deleteEvents } from './actions/booksActions';
-import {addToCart} from './actions/cartActions';
 
 
 
-store.dispatch(postEvents(
-    [{
-		date: "2017-09-30" ,
-        time: '05:00:00' ,
-        venue: 'Mumbai',
-        description: 'Capgemini drive' ,
-        no_of_people_involved: 15 
-    }]
-));
 
-store.dispatch(uploadEvents(
-    {
-        description: 'Capgemini drive',
-        no_of_people_involved: 15
-    }
-));
 
-store.dispatch(deleteEvents({date: "2017-08-30" }));
+
+
+
+
+
+
+
+// import { postEvents, uploadEvents, deleteEvents } from './actions/booksActions';
+// import {addToCart} from './actions/cartActions';
+
+
+
+// store.dispatch(postEvents(
+//     [{
+// 		date: "2017-09-30" ,
+//         time: '05:00:00' ,
+//         venue: 'Mumbai',
+//         description: 'Capgemini drive' ,
+//         no_of_people_involved: 15 
+//     }]
+// ));
+
+// store.dispatch(uploadEvents(
+//     {
+//         description: 'Capgemini drive',
+//         no_of_people_involved: 15
+//     }
+// ));
+
+// store.dispatch(deleteEvents({date: "2017-08-30" }));
 

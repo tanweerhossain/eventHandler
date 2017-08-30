@@ -11288,24 +11288,7 @@ function isPlainObject(value) {
 
 
 /***/ }),
-/* 108 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.addToCart = addToCart;
-function addToCart(card) {
-    return {
-        type: "ADD_TO_CART",
-        payload: card
-    };
-}
-
-/***/ }),
+/* 108 */,
 /* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11485,10 +11468,6 @@ var _booksList = __webpack_require__(109);
 
 var _booksList2 = _interopRequireDefault(_booksList);
 
-var _booksActions = __webpack_require__(37);
-
-var _cartActions = __webpack_require__(108);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // STEP 1 create the store
@@ -11504,20 +11483,28 @@ var store = createStoreWithMiddleware(_index2.default, window.__REDUX_DEVTOOLS_E
     _react2.default.createElement(_booksList2.default, null)
 ), document.getElementById('app'));
 
-store.dispatch((0, _booksActions.postEvents)([{
-    date: "2017-09-30",
-    time: '05:00:00',
-    venue: 'Mumbai',
-    description: 'Capgemini drive',
-    no_of_people_involved: 15
-}]));
+// import { postEvents, uploadEvents, deleteEvents } from './actions/booksActions';
+// import {addToCart} from './actions/cartActions';
 
-store.dispatch((0, _booksActions.uploadEvents)({
-    description: 'Capgemini drive',
-    no_of_people_involved: 15
-}));
 
-store.dispatch((0, _booksActions.deleteEvents)({ date: "2017-08-30" }));
+// store.dispatch(postEvents(
+//     [{
+// 		date: "2017-09-30" ,
+//         time: '05:00:00' ,
+//         venue: 'Mumbai',
+//         description: 'Capgemini drive' ,
+//         no_of_people_involved: 15 
+//     }]
+// ));
+
+// store.dispatch(uploadEvents(
+//     {
+//         description: 'Capgemini drive',
+//         no_of_people_involved: 15
+//     }
+// ));
+
+// store.dispatch(deleteEvents({date: "2017-08-30" }));
 
 /***/ }),
 /* 113 */
