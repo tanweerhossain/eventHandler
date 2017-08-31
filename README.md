@@ -1,11 +1,5 @@
 npm install
 
-sudo npm i --save webpack
-
-in one terminal
-run: node server.js
-
-in 2nd terminal
-run : webpack
+npm start
 
 open localhost:3000 in web-browser
