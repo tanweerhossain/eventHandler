@@ -1,4 +1,5 @@
 "use strict"
+import axios from 'axios';
 
 export function getEvents(events){
     return {
@@ -8,9 +9,20 @@ export function getEvents(events){
 }
 
 export function postEvents(events){
-    return {
-        type:"POST_EVENTS",
-        payload: events
+    return function(dispatch){
+        axios.post("/events",events)
+            .then(function(response){
+                dispatch({
+                    type:"POST_EVENTS",
+                    payload: response.data
+                })
+            })
+            .catch(function(error){
+                dispatch({
+                    type:"POST_EVENTS_REJECTED",
+                    payload: "There was an error while posting a new event."
+                })
+            })
     }
 }
 
