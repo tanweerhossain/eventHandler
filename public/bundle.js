@@ -12027,7 +12027,13 @@ var _bookEntry = __webpack_require__(138);
 
 var _bookEntry2 = _interopRequireDefault(_bookEntry);
 
+var _updateEntry = __webpack_require__(283);
+
+var _updateEntry2 = _interopRequireDefault(_updateEntry);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -12038,22 +12044,44 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var BooksList = function (_React$Component) {
     _inherits(BooksList, _React$Component);
 
-    function BooksList() {
-        _classCallCheck(this, BooksList);
-
-        return _possibleConstructorReturn(this, (BooksList.__proto__ || Object.getPrototypeOf(BooksList)).apply(this, arguments));
-    }
-
     _createClass(BooksList, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
             //Calling 1st dispatch function
             this.props.getEvents();
         }
-    }, {
+    }]);
+
+    function BooksList(props) {
+        _classCallCheck(this, BooksList);
+
+        var _this = _possibleConstructorReturn(this, (BooksList.__proto__ || Object.getPrototypeOf(BooksList)).call(this, props));
+
+        _this.state = {
+            editable: false,
+            id: ""
+        };
+        return _this;
+    }
+
+    _createClass(BooksList, [{
         key: 'handleDelete',
         value: function handleDelete(id) {
             this.props.deleteEvents(id);
+        }
+    }, {
+        key: 'handleEdit',
+        value: function handleEdit(id) {
+            this.setState.apply(this, _toConsumableArray(this.state).concat([{
+                editable: !this.state.editable,
+                id: id
+            }]));
+        }
+    }, {
+        key: 'view',
+        value: function view() {
+            console.log('Entering to block, bool:', this.state.editable);
+            if (this.state.editable) return _react2.default.createElement(_updateEntry2.default, { id: this.state.id });else return _react2.default.createElement(_bookEntry2.default, null);
         }
     }, {
         key: 'render',
@@ -12098,16 +12126,26 @@ var BooksList = function (_React$Component) {
                         null,
                         _react2.default.createElement(
                             'button',
+                            { onClick: _this2.handleEdit.bind(_this2, booksArr._id) },
+                            'Edit'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'td',
+                        null,
+                        _react2.default.createElement(
+                            'button',
                             { onClick: _this2.handleDelete.bind(_this2, booksArr._id) },
                             'Delete'
                         )
                     )
                 );
             });
+            var view = this.view();
             return _react2.default.createElement(
                 'div',
                 null,
-                _react2.default.createElement(_bookEntry2.default, null),
+                view,
                 _react2.default.createElement(
                     'table',
                     null,
@@ -13335,7 +13373,9 @@ function booksReducers() {
 
     switch (action.type) {
         case "GET_EVENTS":
-            var books = state.concat(action.payload);
+            var books = action.payload.map(function (record) {
+                return Object.assign({}, record);
+            });
             return books;
         case "POST_EVENTS":
             books = state.concat(action.payload);
@@ -28891,6 +28931,86 @@ module.exports = function(module) {
 	return module;
 };
 
+
+/***/ }),
+/* 283 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(23);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(38);
+
+var _redux = __webpack_require__(24);
+
+var _booksActions = __webpack_require__(68);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UpdateEntry = function (_React$Component) {
+    _inherits(UpdateEntry, _React$Component);
+
+    function UpdateEntry() {
+        _classCallCheck(this, UpdateEntry);
+
+        return _possibleConstructorReturn(this, (UpdateEntry.__proto__ || Object.getPrototypeOf(UpdateEntry)).apply(this, arguments));
+    }
+
+    _createClass(UpdateEntry, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            console.log('hello1');
+            this.props.getEvents();
+            console.log('hello2');
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var id = this.props.id;
+            console.log('render ', id);
+            var event = this.props.events.filter(function (record) {
+                return record._id === id;
+            });
+            return _react2.default.createElement(
+                'div',
+                null,
+                'hello'
+            );
+        }
+    }]);
+
+    return UpdateEntry;
+}(_react2.default.Component);
+
+function mapStateToProps(state) {
+    return {
+        events: state.events
+    };
+}
+function mapDispatchToProps(dispatch) {
+    return (0, _redux.bindActionCreators)({
+        getEvents: _booksActions.getEvents,
+        uploadEvents: _booksActions.uploadEvents
+        //otherKey : other action function,
+    }, dispatch);
+}
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(UpdateEntry);
 
 /***/ })
 /******/ ]);

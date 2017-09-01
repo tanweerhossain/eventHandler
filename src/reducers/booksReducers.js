@@ -2,7 +2,7 @@
 export function booksReducers(state=[], action){
     switch(action.type){
         case "GET_EVENTS":
-            let books = state.concat(action.payload);
+            let books = action.payload.map((record)=>{return Object.assign({},record)});
             return books;
         case "POST_EVENTS":
             books = state.concat(action.payload);
