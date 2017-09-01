@@ -27,19 +27,43 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // APIs
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/myDB');
-Events = require('./models/events.js');
-//-----POST EVENTS----------
-app.post('/events', function(req, res){
-  var event = req.body;
-  Events.create(event, function(err, events){
-    if(err){
-     throw err;
-    }
-    res.json(events);
-  })
-});
+    var mongoose = require('mongoose');
+    mongoose.connect('mongodb://localhost:27017/myDB');
+    Events = require('./models/events.js');
+
+    //-----POST EVENTS----------
+    app.post('/events', function(req, res){
+      var event = req.body;
+      Events.create(event, function(err, events){
+        if(err){
+          throw err;
+        }
+        res.json(events);
+      })
+    });
+
+    //-----GET EVENTS----------
+    app.get('/events', function(req, res){
+      Events.find(function(err, events){
+        if(err){
+          throw err;
+        }
+        res.json(events);
+      })
+    });
+
+    //----DELETE EVENTS----------
+    app.delete('/events/:_id', function(req, res){
+      var query = { _id: req.params._id };
+ 
+      Events.remove(query,function(err, events){
+        if(err){
+          throw err;
+        }
+        res.json(events);
+      })
+    });
+
 // END APIs
 
 app.get('*', function(req, res){

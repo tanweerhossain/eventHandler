@@ -1,10 +1,21 @@
 "use strict"
 import axios from 'axios';
 
-export function getEvents(events){
-    return {
-        type:"GET_EVENTS",
-        payload: events
+export function getEvents(){
+    return function(dispatch){
+        axios.get("/events")
+            .then(function(response){
+                dispatch({
+                    type:"GET_EVENTS",
+                    payload: response.data
+                })
+            })
+            .catch(function(error){
+                dispatch({
+                    type:"GET_EVENTS_REJECTED",
+                    payload: "There was an error while getting a events."
+                })
+            })
     }
 }
 
@@ -34,8 +45,19 @@ export function uploadEvents(event){
 }
 
 export function deleteEvents(id){
-    return {
-        type:"DELETE_EVENT",
-        payload: id
-    };
+    return function(dispatch){
+        axios.delete("/events/" + id)
+            .then(function(response){
+                dispatch({
+                    type:"DELETE_EVENT",
+                    payload: id
+                })
+            })
+            .catch(function(err){
+                dispatch({
+                    type:"DELETE_EVENT_REJECTED",
+                    payload:err
+                })
+            })
+    }
 }

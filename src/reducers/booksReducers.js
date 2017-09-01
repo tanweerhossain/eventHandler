@@ -9,9 +9,10 @@ export function booksReducers(state=[], action){
             return books;
             // return {books: [...state.books,...action.payload]}
         case "DELETE_EVENT":
-            let id = action.payload.date;
+            let id = action.payload;
+            console.log('------------------',id);
             books = state.filter((record)=>{
-                return ( record.date !== id );
+                return ( record._id !== id );
             });
             return books;
         case "UPLOAD_EVENTS":

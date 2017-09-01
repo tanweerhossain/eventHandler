@@ -13,6 +13,11 @@ class BookEntry extends React.Component{
             description: findDOMNode(this.refs.description).value ,
             no_of_people_involved: findDOMNode(this.refs.no_of_people_involved).value 
         }])
+        findDOMNode(this.refs.date).value = "";
+        findDOMNode(this.refs.time).value = "";
+        findDOMNode(this.refs.venue).value = "";
+        findDOMNode(this.refs.description).value = "";
+        findDOMNode(this.refs.no_of_people_involved).value = "";
     }
     render(){
         return (
@@ -24,7 +29,7 @@ class BookEntry extends React.Component{
                         <td><input type='date' ref='date' /></td>
                     </tr><tr>
                         <td>Time :</td>
-                        <td><input type='text' ref='time' /></td>
+                        <td><input type='text' ref='time' placeholder="hh:mm" /></td>
                     </tr><tr>
                         <td>Venue :</td>
                         <td><input type='text' ref='venue' /></td>
@@ -35,7 +40,11 @@ class BookEntry extends React.Component{
                         <td>Number of people involved :</td>
                         <td><input type='number' ref='no_of_people_involved' /></td>
                     </tr><tr>
-                        <td><button onClick={this.handleSubmit.bind(this)} >Add</button></td>
+                        <td colSpan="2" >
+                            <center>
+                                <button onClick={this.handleSubmit.bind(this)} >Add</button>
+                            </center>
+                        </td>
                     </tr>
                 </tbody>
             </table>
