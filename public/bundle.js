@@ -12070,10 +12070,17 @@ var BooksList = function (_React$Component) {
             this.props.deleteEvents(id);
         }
     }, {
+        key: 'toggleEditableMode',
+        value: function toggleEditableMode() {
+            this.setState.apply(this, _toConsumableArray(this.state).concat([{
+                editable: false
+            }]));
+        }
+    }, {
         key: 'handleEdit',
         value: function handleEdit(id) {
             this.setState.apply(this, _toConsumableArray(this.state).concat([{
-                editable: !this.state.editable,
+                editable: true,
                 id: id
             }]));
         }
@@ -12081,7 +12088,7 @@ var BooksList = function (_React$Component) {
         key: 'view',
         value: function view() {
             console.log('Entering to block, bool:', this.state.editable);
-            if (this.state.editable) return _react2.default.createElement(_updateEntry2.default, { id: this.state.id });else return _react2.default.createElement(_bookEntry2.default, null);
+            if (this.state.editable) return _react2.default.createElement(_updateEntry2.default, { id: this.state.id, toggleEditableMode: this.toggleEditableMode.bind(this) });else return _react2.default.createElement(_bookEntry2.default, null);
         }
     }, {
         key: 'render',
@@ -28955,7 +28962,11 @@ var _redux = __webpack_require__(24);
 
 var _booksActions = __webpack_require__(68);
 
+var _reactDom = __webpack_require__(62);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -28966,31 +28977,165 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var UpdateEntry = function (_React$Component) {
     _inherits(UpdateEntry, _React$Component);
 
-    function UpdateEntry() {
+    function UpdateEntry(props) {
         _classCallCheck(this, UpdateEntry);
 
-        return _possibleConstructorReturn(this, (UpdateEntry.__proto__ || Object.getPrototypeOf(UpdateEntry)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (UpdateEntry.__proto__ || Object.getPrototypeOf(UpdateEntry)).call(this, props));
+
+        var id = _this.props.id;
+        var filteredEvents = _this.props.events.filter(function (record) {
+            return record._id === id;
+        });
+        var _filteredEvents$ = filteredEvents[0],
+            date = _filteredEvents$.date,
+            description = _filteredEvents$.description,
+            venue = _filteredEvents$.venue,
+            time = _filteredEvents$.time,
+            no_of_people_involved = _filteredEvents$.no_of_people_involved;
+
+        _this.state = {
+            date: date,
+            description: description,
+            venue: venue,
+            time: time,
+            no_of_people_involved: no_of_people_involved
+        };
+        return _this;
     }
 
     _createClass(UpdateEntry, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            console.log('hello1');
             this.props.getEvents();
-            console.log('hello2');
+        }
+    }, {
+        key: 'handleSubmit',
+        value: function handleSubmit() {
+            this.props.toggleEditableMode();
         }
     }, {
         key: 'render',
         value: function render() {
-            var id = this.props.id;
-            console.log('render ', id);
-            var event = this.props.events.filter(function (record) {
-                return record._id === id;
-            });
+            var _this2 = this;
+
             return _react2.default.createElement(
                 'div',
                 null,
-                'hello'
+                _react2.default.createElement(
+                    'table',
+                    null,
+                    _react2.default.createElement(
+                        'tbody',
+                        null,
+                        _react2.default.createElement(
+                            'tr',
+                            null,
+                            _react2.default.createElement(
+                                'td',
+                                null,
+                                'Date :'
+                            ),
+                            _react2.default.createElement(
+                                'td',
+                                null,
+                                _react2.default.createElement('input', { type: 'date', ref: 'date', value: this.state.date, onChange: function onChange() {
+                                        _this2.setState.apply(_this2, _toConsumableArray(_this2.state).concat([{
+                                            date: (0, _reactDom.findDOMNode)(_this2.refs.date).value
+                                        }]));
+                                    } })
+                            )
+                        ),
+                        _react2.default.createElement(
+                            'tr',
+                            null,
+                            _react2.default.createElement(
+                                'td',
+                                null,
+                                'Time :'
+                            ),
+                            _react2.default.createElement(
+                                'td',
+                                null,
+                                _react2.default.createElement('input', { type: 'text', ref: 'time', placeholder: 'hh:mm', value: this.state.time, onChange: function onChange() {
+                                        _this2.setState.apply(_this2, _toConsumableArray(_this2.state).concat([{
+                                            time: (0, _reactDom.findDOMNode)(_this2.refs.time).value
+                                        }]));
+                                    } })
+                            )
+                        ),
+                        _react2.default.createElement(
+                            'tr',
+                            null,
+                            _react2.default.createElement(
+                                'td',
+                                null,
+                                'Venue :'
+                            ),
+                            _react2.default.createElement(
+                                'td',
+                                null,
+                                _react2.default.createElement('input', { type: 'text', ref: 'venue', value: this.state.venue, onChange: function onChange() {
+                                        _this2.setState.apply(_this2, _toConsumableArray(_this2.state).concat([{
+                                            venue: (0, _reactDom.findDOMNode)(_this2.refs.venue).value
+                                        }]));
+                                    } })
+                            )
+                        ),
+                        _react2.default.createElement(
+                            'tr',
+                            null,
+                            _react2.default.createElement(
+                                'td',
+                                null,
+                                'Description :'
+                            ),
+                            _react2.default.createElement(
+                                'td',
+                                null,
+                                _react2.default.createElement('input', { type: 'text', ref: 'description', value: this.state.description, onChange: function onChange() {
+                                        _this2.setState.apply(_this2, _toConsumableArray(_this2.state).concat([{
+                                            description: (0, _reactDom.findDOMNode)(_this2.refs.description).value
+                                        }]));
+                                    } })
+                            )
+                        ),
+                        _react2.default.createElement(
+                            'tr',
+                            null,
+                            _react2.default.createElement(
+                                'td',
+                                null,
+                                'Number of people involved :'
+                            ),
+                            _react2.default.createElement(
+                                'td',
+                                null,
+                                _react2.default.createElement('input', { type: 'number', ref: 'no_of_people_involved', value: this.state.no_of_people_involved, onChange: function onChange() {
+                                        _this2.setState.apply(_this2, _toConsumableArray(_this2.state).concat([{
+                                            no_of_people_involved: (0, _reactDom.findDOMNode)(_this2.refs.no_of_people_involved).value
+                                        }]));
+                                    } })
+                            )
+                        ),
+                        _react2.default.createElement(
+                            'tr',
+                            null,
+                            _react2.default.createElement(
+                                'td',
+                                { colSpan: '2' },
+                                _react2.default.createElement(
+                                    'center',
+                                    null,
+                                    _react2.default.createElement(
+                                        'button',
+                                        { onClick: this.handleSubmit.bind(this) },
+                                        'Save'
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
             );
         }
     }]);
@@ -29010,6 +29155,7 @@ function mapDispatchToProps(dispatch) {
         //otherKey : other action function,
     }, dispatch);
 }
+
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(UpdateEntry);
 
 /***/ })

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { findDOMNode } from 'react-dom'
+import { findDOMNode } from 'react-dom';
 import { postEvents } from '../../actions/booksActions';
 
 class BookEntry extends React.Component{
@@ -11,7 +11,7 @@ class BookEntry extends React.Component{
             time: findDOMNode(this.refs.time).value ,
             venue: findDOMNode(this.refs.venue).value ,
             description: findDOMNode(this.refs.description).value ,
-            no_of_people_involved: findDOMNode(this.refs.no_of_people_involved).value 
+            no_of_people_involved:  findDOMNode(this.refs.no_of_people_involved).value 
         }])
         findDOMNode(this.refs.date).value = "";
         findDOMNode(this.refs.time).value = "";

@@ -3,49 +3,81 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getEvents,uploadEvents } from '../../actions/booksActions';
+import { findDOMNode } from 'react-dom';
 
 class UpdateEntry extends React.Component{
-    componentDidMount(){
-        console.log('hello1')
-        this.props.getEvents();
-        console.log('hello2')
-    }
-    render(){
+    constructor(props){
+        super(props);
         const id = this.props.id;
-        console.log('render ',id)
-        const event = this.props.events.filter((record)=>{
+        const filteredEvents = this.props.events.filter((record)=>{
             return (record._id ===id);
         })
+        const {date, description, venue, time, no_of_people_involved} = filteredEvents[0];
+        this.state = {
+            date: date,
+            description : description,
+            venue:venue,
+            time:time,
+            no_of_people_involved:no_of_people_involved
+        };
+    }
+    componentDidMount(){
+        this.props.getEvents();
+    }
+    handleSubmit(){
+        this.props.toggleEditableMode();
+    }
+    render(){
+        
         return (
             <div>
-                hello
-            {/* <table>
-                <tbody>
-                    <tr>
-                        <td>Date :</td>
-                        <td><input type='date' ref='date' value={} /></td>
-                    </tr><tr>
-                        <td>Time :</td>
-                        <td><input type='text' ref='time' placeholder="hh:mm" /></td>
-                    </tr><tr>
-                        <td>Venue :</td>
-                        <td><input type='text' ref='venue' /></td>
-                    </tr><tr>
-                        <td>Description :</td>
-                        <td><input type='text' ref='description' /></td>
-                    </tr><tr>
-                        <td>Number of people involved :</td>
-                        <td><input type='number' ref='no_of_people_involved' /></td>
-                    </tr><tr>
-                        <td colSpan="2" >
-                            <center>
-                                <button onClick={this.handleSubmit.bind(this)} >Save</button>
-                            </center>
-                        </td>
-                    </tr>
-                </tbody> 
-            </table>*/}
-        </div>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Date :</td>
+                            <td><input type='date' ref='date' value={this.state.date} onChange={()=>{
+                                this.setState(...this.state,{
+                                    date : findDOMNode(this.refs.date).value
+                                })
+                            }}/></td>
+                        </tr><tr>
+                            <td>Time :</td>
+                            <td><input type='text' ref='time' placeholder="hh:mm" value={this.state.time} onChange={()=>{
+                                this.setState(...this.state,{
+                                    time : findDOMNode(this.refs.time).value
+                                })
+                            }}/></td>
+                        </tr><tr>
+                            <td>Venue :</td>
+                            <td><input type='text' ref='venue' value={this.state.venue} onChange={()=>{
+                                this.setState(...this.state,{
+                                    venue : findDOMNode(this.refs.venue).value
+                                })
+                            }} /></td>
+                        </tr><tr>
+                            <td>Description :</td>
+                            <td><input type='text' ref='description' value={this.state.description} onChange={()=>{
+                                this.setState(...this.state,{
+                                    description : findDOMNode(this.refs.description).value
+                                })
+                            }} /></td>
+                        </tr><tr>
+                            <td>Number of people involved :</td>
+                            <td><input type='number' ref='no_of_people_involved' value={this.state.no_of_people_involved} onChange={()=>{
+                                this.setState(...this.state,{
+                                    no_of_people_involved : findDOMNode(this.refs.no_of_people_involved).value
+                                })
+                            }} /></td>
+                        </tr><tr>
+                            <td colSpan="2" >
+                                <center>
+                                    <button onClick={this.handleSubmit.bind(this)} >Save</button>
+                                </center>
+                            </td>
+                        </tr>
+                    </tbody> 
+                </table>
+            </div>
         );
     }
 }
@@ -62,4 +94,5 @@ function mapDispatchToProps(dispatch){
         //otherKey : other action function,
     },dispatch)
 }
+
 export default connect(mapStateToProps,mapDispatchToProps)(UpdateEntry)

@@ -22,16 +22,21 @@ class BooksList extends React.Component{
     handleDelete(id){
         this.props.deleteEvents(id);
     }
+    toggleEditableMode(){
+        this.setState(...this.state,{
+            editable : false
+        })
+    }
     handleEdit(id){
         this.setState(...this.state,{
-            editable : !this.state.editable,
+            editable : true,
             id : id
         })
     }
     view(){
         console.log('Entering to block, bool:',this.state.editable);
         if (this.state.editable)
-            return (<UpdateEntry id={this.state.id} />);
+            return (<UpdateEntry id={this.state.id} toggleEditableMode={this.toggleEditableMode.bind(this)}/>);
         else
             return (<BookEntry />);
     }
