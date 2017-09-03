@@ -5448,7 +5448,7 @@ function uploadEvents(id, event) {
         _axios2.default.put("/events/" + id, event).then(function (response) {
             dispatch({
                 type: "UPLOAD_EVENTS",
-                payload: response.data
+                payload: event
             });
         }).catch(function (error) {
             dispatch({
@@ -13651,12 +13651,14 @@ function booksReducers() {
             });
             return books;
         case "UPLOAD_EVENTS":
-            id = action.payload.description;
+            id = action.payload._id;
             books = state.map(function (record) {
                 return Object.assign({}, record);
             });
             books = books.map(function (record) {
-                if (record.description === id) record.no_of_people_involved = action.payload.no_of_people_involved;
+                if (record._id === id) {
+                    record.date = action.payload.date, record.description = action.payload.description, record.venue = action.payload.venue, record.time = action.payload.time, record.no_of_people_involved = action.payload.no_of_people_involved;
+                }
                 return record;
             });
             return books;

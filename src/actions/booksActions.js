@@ -43,7 +43,7 @@ export function uploadEvents(id,event){
             .then(function(response){
                 dispatch({
                     type:"UPLOAD_EVENTS",
-                    payload: response.data
+                    payload: event
                 })
             })
             .catch(function(error){

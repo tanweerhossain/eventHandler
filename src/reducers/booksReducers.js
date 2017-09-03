@@ -16,11 +16,16 @@ export function booksReducers(state=[], action){
             });
             return books;
         case "UPLOAD_EVENTS":
-            id = action.payload.description;
+            id = action.payload._id;
             books = state.map((record)=>{return Object.assign({},record)});
             books = books.map((record) =>{
-                if(record.description === id)
+                if(record._id === id){
+                    record.date = action.payload.date,
+                    record.description = action.payload.description,
+                    record.venue = action.payload.venue,
+                    record.time = action.payload.time,
                     record.no_of_people_involved = action.payload.no_of_people_involved;
+                }
                 return record;
             });
             return books;
