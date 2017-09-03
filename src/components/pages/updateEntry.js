@@ -12,8 +12,9 @@ class UpdateEntry extends React.Component{
         const filteredEvents = this.props.events.filter((record)=>{
             return (record._id ===id);
         })
-        const {date, description, venue, time, no_of_people_involved} = filteredEvents[0];
+        const { _id, date, description, venue, time, no_of_people_involved} = filteredEvents[0];
         this.state = {
+            _id : _id,
             date: date,
             description : description,
             venue:venue,
@@ -25,6 +26,11 @@ class UpdateEntry extends React.Component{
         this.props.getEvents();
     }
     handleSubmit(){
+        // this.props.updateEntryHandler(this.state)
+        this.props.uploadEvents(this.state._id ,this.state )
+        this.props.toggleEditableMode();
+    }
+    handleDiscard(){
         this.props.toggleEditableMode();
     }
     render(){
@@ -72,6 +78,7 @@ class UpdateEntry extends React.Component{
                             <td colSpan="2" >
                                 <center>
                                     <button onClick={this.handleSubmit.bind(this)} >Save</button>
+                                    <button onClick={this.handleDiscard.bind(this)} >Discard</button>
                                 </center>
                             </td>
                         </tr>

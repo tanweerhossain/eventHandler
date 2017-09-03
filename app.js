@@ -64,6 +64,27 @@ app.use(express.static(path.join(__dirname, 'public')));
       })
     });
 
+    //---->>> UPDATE EVENTS <<<------
+    app.put('/events/:_id', function(req, res){
+      var event = req.body;
+      var query = { _id: req.params._id };
+      // if the field doesn't exist $set will set a new field
+      var update = {
+        '$set':{
+          date: event.date,
+          description : event.description,
+          venue: event.venue,
+          time: event.time,
+          no_of_people_involved: event.no_of_people_involved
+        }
+      };
+      Events.updateMany(query, update, 
+        function(err, events){
+              if(err)
+                throw err;
+              res.json(events);
+            })
+    });
 // END APIs
 
 app.get('*', function(req, res){

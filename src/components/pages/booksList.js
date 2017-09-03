@@ -8,16 +8,20 @@ import BookEntry from './bookEntry';
 import UpdateEntry from './updateEntry';
 
 class BooksList extends React.Component{
-    componentDidMount(){
-        //Calling 1st dispatch function
-        this.props.getEvents();
-    }
+    
     constructor(props){
         super(props);
+        const x = this.props.events.filter((record)=>{
+            return true;
+        });
         this.state = {
             editable : false,
             id : ""
         }
+    }
+    componentDidMount(){
+        //Calling 1st dispatch function
+        this.props.getEvents();
     }
     handleDelete(id){
         this.props.deleteEvents(id);
@@ -27,6 +31,9 @@ class BooksList extends React.Component{
             editable : false
         })
     }
+    updateEntryHandler(event){
+
+    }
     handleEdit(id){
         this.setState(...this.state,{
             editable : true,
@@ -34,14 +41,23 @@ class BooksList extends React.Component{
         })
     }
     view(){
-        console.log('Entering to block, bool:',this.state.editable);
         if (this.state.editable)
-            return (<UpdateEntry id={this.state.id} toggleEditableMode={this.toggleEditableMode.bind(this)}/>);
+            return (<UpdateEntry 
+                        //events={this.state.events} 
+                        //updateEntryHandler={this.updateEntryHandler.bind(this,event)} 
+                        id={this.state.id} 
+                        toggleEditableMode={this.toggleEditableMode.bind(this)}
+                    />);
         else
             return (<BookEntry />);
     }
+    // transferingPropsDataToState(){
+    //     this.setState(...this.state,{
+    //         events: this.props.events
+    //     })
+    // }
     render(){
-        //console.log('---------->',this.props)
+
         const booksCopy = this.props.events.map((x)=>{
             return Object.assign({},x);
         })

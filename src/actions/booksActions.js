@@ -37,11 +37,22 @@ export function postEvents(events){
     }
 }
 
-export function uploadEvents(event){
-    return {
-        type:"UPLOAD_EVENTS",
-        payload: event
-    };
+export function uploadEvents(id,event){
+    return function(dispatch){
+        axios.put("/events/" + id,event)
+            .then(function(response){
+                dispatch({
+                    type:"UPLOAD_EVENTS",
+                    payload: response.data
+                })
+            })
+            .catch(function(error){
+                dispatch({
+                    type:"UPLOAD_EVENTS_REJECTED",
+                    payload: "There was an error while updating a new event."
+                })
+            })
+    }
 }
 
 export function deleteEvents(id){
