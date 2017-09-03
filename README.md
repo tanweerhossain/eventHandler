@@ -1,3 +1,6 @@
+git clone https://github.com/tanweerhossain/eventHandler.git
+
+
 npm install
 
 sudo npm i -g webpack
