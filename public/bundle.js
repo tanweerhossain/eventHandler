@@ -13257,13 +13257,21 @@ var BookEntry = function (_React$Component) {
     _createClass(BookEntry, [{
         key: 'handleSubmit',
         value: function handleSubmit() {
-            this.props.postEvents([{
+            var x = {
                 date: (0, _reactDom.findDOMNode)(this.refs.date).value,
                 time: (0, _reactDom.findDOMNode)(this.refs.time).value,
                 venue: (0, _reactDom.findDOMNode)(this.refs.venue).value,
                 description: (0, _reactDom.findDOMNode)(this.refs.description).value,
                 no_of_people_involved: (0, _reactDom.findDOMNode)(this.refs.no_of_people_involved).value
-            }]);
+            };
+            var entryStatus = x.date !== '' && x.time !== '' && x.venue !== '' && x.description !== '' && x.no_of_people_involved !== '';
+            if (entryStatus) this.props.postEvents([{
+                date: x.date,
+                time: x.time,
+                venue: x.venue,
+                description: x.description,
+                no_of_people_involved: x.no_of_people_involved
+            }]);else window.alert('All fields are mantatory.');
             (0, _reactDom.findDOMNode)(this.refs.date).value = "";
             (0, _reactDom.findDOMNode)(this.refs.time).value = "";
             (0, _reactDom.findDOMNode)(this.refs.venue).value = "";
