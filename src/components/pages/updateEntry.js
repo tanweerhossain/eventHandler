@@ -21,9 +21,12 @@ class UpdateEntry extends React.Component{
             time:time,
             no_of_people_involved:no_of_people_involved
         };
+        console.log('constructor is called');
+        
     }
     componentDidMount(){
-        this.props.getEvents();
+        //this.props.getEvents();
+        console.log('componentDidMount is called');
     }
     handleSubmit(){
         // this.props.updateEntryHandler(this.state)
@@ -34,6 +37,7 @@ class UpdateEntry extends React.Component{
         this.props.toggleEditableMode();
     }
     render(){
+        console.log('render is called');
         
         return (
             <div>
@@ -41,35 +45,35 @@ class UpdateEntry extends React.Component{
                     <tbody>
                         <tr>
                             <td>Date :</td>
-                            <td><input type='date' ref='date' value={this.state.date} onChange={()=>{
+                            <td><input type='date' ref='date' value={ this.props.events.date || this.state.date} onChange={()=>{
                                 this.setState(...this.state,{
                                     date : findDOMNode(this.refs.date).value
                                 })
                             }}/></td>
                         </tr><tr>
                             <td>Time :</td>
-                            <td><input type='text' ref='time' placeholder="hh:mm" value={this.state.time} onChange={()=>{
+                            <td><input type='text' ref='time' placeholder="hh:mm" value={ this.props.events.time || this.state.time} onChange={()=>{
                                 this.setState(...this.state,{
                                     time : findDOMNode(this.refs.time).value
                                 })
                             }}/></td>
                         </tr><tr>
                             <td>Venue :</td>
-                            <td><input type='text' ref='venue' value={this.state.venue} onChange={()=>{
+                            <td><input type='text' ref='venue' value={ this.props.events.venue || this.state.venue} onChange={()=>{
                                 this.setState(...this.state,{
                                     venue : findDOMNode(this.refs.venue).value
                                 })
                             }} /></td>
                         </tr><tr>
                             <td>Description :</td>
-                            <td><input type='text' ref='description' value={this.state.description} onChange={()=>{
+                            <td><input type='text' ref='description' value={ this.props.events.description || this.state.description} onChange={()=>{
                                 this.setState(...this.state,{
                                     description : findDOMNode(this.refs.description).value
                                 })
                             }} /></td>
                         </tr><tr>
                             <td>Number of people involved :</td>
-                            <td><input type='number' ref='no_of_people_involved' value={this.state.no_of_people_involved} onChange={()=>{
+                            <td><input type='number' ref='no_of_people_involved' value={ this.props.events.no_of_people_involved || this.state.no_of_people_involved} onChange={()=>{
                                 this.setState(...this.state,{
                                     no_of_people_involved : findDOMNode(this.refs.no_of_people_involved).value
                                 })
@@ -89,11 +93,11 @@ class UpdateEntry extends React.Component{
     }
 }
 
-function mapStateToProps(state){
-    return{
-        events : state.events
-    }
-}
+// function mapStateToProps(state){
+//     return{
+//         events : state.events
+//     }
+// }
 function mapDispatchToProps(dispatch){
     return bindActionCreators({
         getEvents : getEvents,
@@ -102,4 +106,4 @@ function mapDispatchToProps(dispatch){
     },dispatch)
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(UpdateEntry)
+export default connect(null,mapDispatchToProps)(UpdateEntry)

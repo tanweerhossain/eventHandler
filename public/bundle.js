@@ -12104,7 +12104,8 @@ var BooksList = function (_React$Component) {
             //events={this.state.events} 
             //updateEntryHandler={this.updateEntryHandler.bind(this,event)} 
             , { id: this.state.id,
-                toggleEditableMode: this.toggleEditableMode.bind(this)
+                toggleEditableMode: this.toggleEditableMode.bind(this),
+                events: this.props.events
             });else return _react2.default.createElement(_bookEntry2.default, null);
         }
         // transferingPropsDataToState(){
@@ -13456,13 +13457,16 @@ var UpdateEntry = function (_React$Component) {
             time: time,
             no_of_people_involved: no_of_people_involved
         };
+        console.log('constructor is called');
+
         return _this;
     }
 
     _createClass(UpdateEntry, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            this.props.getEvents();
+            //this.props.getEvents();
+            console.log('componentDidMount is called');
         }
     }, {
         key: 'handleSubmit',
@@ -13480,6 +13484,8 @@ var UpdateEntry = function (_React$Component) {
         key: 'render',
         value: function render() {
             var _this2 = this;
+
+            console.log('render is called');
 
             return _react2.default.createElement(
                 'div',
@@ -13501,7 +13507,7 @@ var UpdateEntry = function (_React$Component) {
                             _react2.default.createElement(
                                 'td',
                                 null,
-                                _react2.default.createElement('input', { type: 'date', ref: 'date', value: this.state.date, onChange: function onChange() {
+                                _react2.default.createElement('input', { type: 'date', ref: 'date', value: this.props.events.date || this.state.date, onChange: function onChange() {
                                         _this2.setState.apply(_this2, _toConsumableArray(_this2.state).concat([{
                                             date: (0, _reactDom.findDOMNode)(_this2.refs.date).value
                                         }]));
@@ -13519,7 +13525,7 @@ var UpdateEntry = function (_React$Component) {
                             _react2.default.createElement(
                                 'td',
                                 null,
-                                _react2.default.createElement('input', { type: 'text', ref: 'time', placeholder: 'hh:mm', value: this.state.time, onChange: function onChange() {
+                                _react2.default.createElement('input', { type: 'text', ref: 'time', placeholder: 'hh:mm', value: this.props.events.time || this.state.time, onChange: function onChange() {
                                         _this2.setState.apply(_this2, _toConsumableArray(_this2.state).concat([{
                                             time: (0, _reactDom.findDOMNode)(_this2.refs.time).value
                                         }]));
@@ -13537,7 +13543,7 @@ var UpdateEntry = function (_React$Component) {
                             _react2.default.createElement(
                                 'td',
                                 null,
-                                _react2.default.createElement('input', { type: 'text', ref: 'venue', value: this.state.venue, onChange: function onChange() {
+                                _react2.default.createElement('input', { type: 'text', ref: 'venue', value: this.props.events.venue || this.state.venue, onChange: function onChange() {
                                         _this2.setState.apply(_this2, _toConsumableArray(_this2.state).concat([{
                                             venue: (0, _reactDom.findDOMNode)(_this2.refs.venue).value
                                         }]));
@@ -13555,7 +13561,7 @@ var UpdateEntry = function (_React$Component) {
                             _react2.default.createElement(
                                 'td',
                                 null,
-                                _react2.default.createElement('input', { type: 'text', ref: 'description', value: this.state.description, onChange: function onChange() {
+                                _react2.default.createElement('input', { type: 'text', ref: 'description', value: this.props.events.description || this.state.description, onChange: function onChange() {
                                         _this2.setState.apply(_this2, _toConsumableArray(_this2.state).concat([{
                                             description: (0, _reactDom.findDOMNode)(_this2.refs.description).value
                                         }]));
@@ -13573,7 +13579,7 @@ var UpdateEntry = function (_React$Component) {
                             _react2.default.createElement(
                                 'td',
                                 null,
-                                _react2.default.createElement('input', { type: 'number', ref: 'no_of_people_involved', value: this.state.no_of_people_involved, onChange: function onChange() {
+                                _react2.default.createElement('input', { type: 'number', ref: 'no_of_people_involved', value: this.props.events.no_of_people_involved || this.state.no_of_people_involved, onChange: function onChange() {
                                         _this2.setState.apply(_this2, _toConsumableArray(_this2.state).concat([{
                                             no_of_people_involved: (0, _reactDom.findDOMNode)(_this2.refs.no_of_people_involved).value
                                         }]));
@@ -13611,11 +13617,13 @@ var UpdateEntry = function (_React$Component) {
     return UpdateEntry;
 }(_react2.default.Component);
 
-function mapStateToProps(state) {
-    return {
-        events: state.events
-    };
-}
+// function mapStateToProps(state){
+//     return{
+//         events : state.events
+//     }
+// }
+
+
 function mapDispatchToProps(dispatch) {
     return (0, _redux.bindActionCreators)({
         getEvents: _booksActions.getEvents,
@@ -13624,7 +13632,7 @@ function mapDispatchToProps(dispatch) {
     }, dispatch);
 }
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(UpdateEntry);
+exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(UpdateEntry);
 
 /***/ }),
 /* 140 */

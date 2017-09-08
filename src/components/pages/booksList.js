@@ -47,6 +47,7 @@ class BooksList extends React.Component{
                         //updateEntryHandler={this.updateEntryHandler.bind(this,event)} 
                         id={this.state.id} 
                         toggleEditableMode={this.toggleEditableMode.bind(this)}
+                        events={this.props.events}
                     />);
         else
             return (<BookEntry />);
